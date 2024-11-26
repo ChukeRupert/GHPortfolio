@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <header>
-      <h1>My Portfolio</h1>
+  <div :class="{'dark-mode': isDarkMode}" id="app">
+    <header :class="{'dark-mode': isDarkMode}">
+      <h1>Charles (Chuke) Rupert</h1>
       <nav>
         <ul>
           <li><router-link to="/">Home</router-link></li>
@@ -9,10 +9,10 @@
           <li><router-link to="/projects">Projects</router-link></li>
         </ul>
       </nav>
-      <button id="dark-mode-toggle">Toggle Dark Mode</button>
+      <button id="dark-mode-toggle" @click="toggleDarkMode">Toggle Dark Mode</button>
     </header>
-    <router-view></router-view>
-    <footer>
+    <router-view :isDarkMode="isDarkMode"></router-view>
+    <footer :class="{'dark-mode': isDarkMode}">
       <section id="contact">
         <h2>Contact</h2>
         <p>Email: charles.n.rupert@gmail.com | <i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/charlesrupert">LinkedIn</a></p>
@@ -23,12 +23,16 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
+  data() {
+    return {
+      isDarkMode: true
+    }
+  },
   methods: {
     toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
+      this.isDarkMode = !this.isDarkMode;
     }
   }
 }
@@ -93,9 +97,9 @@ footer #contact p {
 }
 
 /* Dark mode styles */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
+.dark-mode {
+  background-color: #333;
+  color: white;
 }
 
 header.dark-mode, footer.dark-mode {
@@ -104,10 +108,5 @@ header.dark-mode, footer.dark-mode {
 
 nav ul li a.dark-mode {
   color: #e0e0e0;
-}
-
-.skill-category.dark-mode {
-  background-color: #2c2c2c;
-  border-color: #444;
 }
 </style>
